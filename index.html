@@ -25,8 +25,17 @@
     // 🧠 The person also has an `ageGracefully` method, which increases `age` by 1 each time it's called.
     // 🧠 But there's a catch: once `age` reaches 12, the `ageGracefully` method will have no effect.
     class PeterPan {
-
+    constructor(name) {
+        this.name = name;
+        this.age = 0;
     }
+
+    ageGracefully() {
+        if (this.age < 12) {
+            this.age++;
+        }
+    }
+}
 
     // 👉 CHALLENGE 2
     // 🧠 Build an AirPlane class. This class allows to instantiate airplanes.
@@ -38,7 +47,25 @@
     // 🧠 Calling `down` changes the `altitude` prop appropriately and returns the updated `altitude`.
     // 🧠 If calling `down` would cause the plane to go below altitude zero, `altitude` is set to 0 and the string "CRASH!" is returned.
     class AirPlane {
+      constructor(model) {
+        this.model = model;
+        this.altitude = 0;
+      }
 
+      up(meters) {
+        this.altitude += meters;
+        return this.altitude;
+      }
+
+      down(meters) {
+        if (this.altitude - meters < 0) {
+          this.altitude = 0;
+          return "CRASH!";
+        } else {
+          this.altitude -= meters;
+          return this.altitude;
+        }
+      }
     }
 
     // 👉 CHALLENGE 3
@@ -48,25 +75,49 @@
     // 🧠 The methods work as one might expect, changing the value of `isOn` to the appropriate Boolean.
     // 🧠 The methods also return one of these two strings: "You turned the bulb ON", or "You turned the bulb OFF".
     class Bulb {
+      constructor() {
+        this.isOn = false;
+      }
 
+      turnOn() {
+        this.isOn = true;
+        return "You turned the bulb ON";
+      }
+
+      turnOff() {
+        this.isOn = false;
+        return "You turned the bulb OFF";
+      }
+
+      toggle() {
+        this.isOn = !this.isOn;
+        if (this.isOn) {
+          return "You turned the bulb ON";
+        } else {
+          return "You turned the bulb OFF";
+        }
+      }
     }
 
-    // 👉 CHALLENGE 4
-    // 🧠 Build a CountDown class that can count down starting at any number we pass to the constructor.
-    // 🧠 CountDowns have a `count` method that returns a string in the format "10!".
-    // 🧠 One exception is that upon reaching zero, instead of returning "0!", `count` returns "Liftoff!"
-    // 🧠 After liftoff, `count` returns null instead of a string.
-    // 🧠 It's up to you to decide what property (or properties) are needed.
-    // Example of use:
-    //   let minusThree = new CountDown(3) // we could pass any number
-    //   minusThree.count() // returns "3!"
-    //   minusThree.count() // returns "2!"
-    //   minusThree.count() // returns "1!"
-    //   minusThree.count() // returns "Liftoff!"
-    //   minusThree.count() // returns null
-    //   minusThree.count() // returns null
-    class CountDown {
 
+    class CountDown {
+      constructor(startingNumber) {
+        this.startingNumber = startingNumber;
+        this.currentNumber = startingNumber;
+      }
+
+      count() {
+        if (this.currentNumber > 0) {
+          const countdownString = `${this.currentNumber}!`;
+          this.currentNumber--;
+          return countdownString;
+        } else if (this.currentNumber === 0) {
+          this.currentNumber--;
+          return "Liftoff!";
+        } else {
+          return null;
+        }
+      }
     }
 
     // 🧪 TESTS, do not work below this line
@@ -316,5 +367,4 @@
     }
   </script>
 </body>
-
 </html>
